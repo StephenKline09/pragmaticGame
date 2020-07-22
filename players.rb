@@ -28,14 +28,10 @@ class Players
         @health += 15
         puts "#{@name} got w00ted!"
     end
+
+    def strong?
+        @health > 100
+    end
 end
 
-if __FILE__ == $0
-    players = Players.new("moe")
-    puts players.name
-    puts players.health
-    players.w00t
-    puts players.health
-    players.blam
-    puts players.health
-end
+
