@@ -17,15 +17,6 @@ class Game
             puts players
         end
         @players.each do |players|
-            die = Die.new
-            case die.roll
-            when 1..2
-                players.blam
-            when 3..4
-                puts "#{players.name} was skipped"
-            else
-                players.w00t
-            end
             puts players
         end
     end
