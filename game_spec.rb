@@ -11,6 +11,10 @@ describe Game do
         @game.add_players(@players)
     end
 
+    it "has a title" do
+        @game.title.should == "Knuckleheads"
+    end
+
     it "w00ts the player if a high number is rolled" do
         Die.any_instance.stub("roll").and_return(5)
 

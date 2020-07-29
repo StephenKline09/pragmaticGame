@@ -1,5 +1,4 @@
 require_relative 'players'
-require_relative 'die'
 require_relative 'game_turn'
 
 class Game
@@ -9,12 +8,18 @@ class Game
         @title = title
         @players = []
     end
+
     def add_players(a_player)
         @players.push(a_player)
     end
+
+    def print_name_and_health(player)
+        puts "#{player.name} (#{player.health})"
+    end
+
     def print_stats
-        strong_players, wimpy_players = @players.partition { |players| players.strong? }
         puts "\n#{@title} Statistics:"
+        strong_players, wimpy_players = @players.partition { |players| players.strong? }
 
         puts "\n#{strong_players.size} Strong Players:"
         strong_players.each do |players|
@@ -26,14 +31,13 @@ class Game
             puts "#{players.name} (#{players.health})"
         end
 
-        sorted_players = @players.sort { |a, b| b.score <=> a.score }
-
         puts "\n#{@title} High Scores:"
-        sorted_players.each do |players|
-            formatted_name = player.name.ljust(20, '.')
+        @players.sort.each do |players|
+            formatted_name = players.name.ljust(20, '.')
             puts "#{formatted_name} #{players.score}"
         end
     end
+
     def play(rounds)
         puts "There are #{@players.size} players in #{@title}:"
         @players.each do |players|
