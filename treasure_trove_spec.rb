@@ -47,3 +47,9 @@ describe TreasureTrove do
   end
 
 end
+
+it "returns a random treasure" do
+    treasure = TreasureTrove.random
+  
+    TreasureTrove::TREASURES.should include(treasure)
+end
