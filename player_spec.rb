@@ -1,4 +1,5 @@
 require_relative 'players'
+require_relative 'treasure_trove'
 
 describe Players do
 
@@ -16,11 +17,17 @@ describe Players do
     end
 
     it "has a string representation" do
-        @players.to_s.should == "Larry has a health of 150 and a score of 155."
+        @players.found_treasure(Treasure.new(:hammer, 50))
+        @players.found_treasure(Treasure.new(:hammer, 50))
+
+        @players.to_s.should == "I'm Larry with health = 150, points = 100, and score = 250."
     end
 
     it "computes a score as the sum of its health and length of name" do
-        @players.score.should == (150 +5)
+        @players.found_treasure(Treasure.new(:hammer, 50))
+        @players.found_treasure(Treasure.new(:hammer, 50))
+
+        @players.score.should == 250
     end
 
     it "increases by 15 when w00ted" do
@@ -35,9 +42,25 @@ describe Players do
         @players.health.should == @initial_health - 10
     end
 
+    it "computes points as the sum of all treasure points" do
+        @players.points.should == 0
+      
+        @players.found_treasure(Treasure.new(:hammer, 50))
+      
+        @players.points.should == 50
+      
+        @players.found_treasure(Treasure.new(:crowbar, 400))
+      
+        @players.points.should == 450
+      
+        @players.found_treasure(Treasure.new(:hammer, 50))
+      
+        @players.points.should == 500
+    end
+
     context "created with a default health" do
         before do
-          @players = Player.new("larry")
+          @players = Players.new("larry")
         end
         
         it "has a health of 100" do
@@ -67,11 +90,11 @@ end
 
 context "in a collection of players" do
     before do
-      @player1 = Player.new("moe", 100)
-      @player2 = Player.new("larry", 200)
-      @player3 = Player.new("curly", 300)
+      @players1 = Players.new("moe", 100)
+      @players2 = Players.new("larry", 200)
+      @players3 = Players.new("curly", 300)
 
-      @players = [@player1, @player2, @player3]
+      @players = [@players1, @players2, @players3]
     end
     
     it "is sorted by decreasing score" do

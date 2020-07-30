@@ -13,11 +13,11 @@ module GameTurn
             players.w00t
         end
         treasure = TreasureTrove.random
-        puts "#{players.name} found a #{treasure.name} worth #{treasure.points} points."
+        players.found_treasure(treasure)
     end
 end
 
 if __FILE__ == $0
-    player = Player.new("curly", 125)
-    GameTurn.take_turn(player)
+    players = Players.new("curly", 125)
+    GameTurn.take_turn(players)
 end
