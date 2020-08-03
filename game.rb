@@ -10,6 +10,21 @@ class Game
     @title = title
     @players = []
   end
+
+  def load_players(from_file)
+    File.readlines(from_file).each do |line|
+      add_players(Players.from_csv(line))
+    end
+  end
+
+  def save_high_scores(to_file="high_scores.txt")
+    File.open(to_file, "w") do |file|
+      file.puts "#{@title} High Scores:"
+      @players.sort.each do |players|
+        file.puts high_score_entry(players)
+      end
+    end
+  end
   
   def add_players(a_player)
     @players.push(a_player)
@@ -54,6 +69,7 @@ class Game
     puts "#{strong_players.size} strong players:"
     strong_players.each do |players|
       print_name_and_health(players)
+    puts ""
     end    
     
     puts "#{wimpy_players.size} wimpy players:"
@@ -61,10 +77,21 @@ class Game
       print_name_and_health(players)
     end    
     
+    def high_score_entry(players)
+      puts ""
+      formatted_name = players.name.ljust(20, '.')
+      "#{formatted_name} #{players.score}"
+    end
+
     puts "\n#{@title} High Scores:"
     @players.sort.each do |players|
-      formatted_name = players.name.ljust(20, '.')
-      puts "#{formatted_name} #{players.score}"
+      puts high_score_entry(players)
+      puts "\n#{players.name}'s points totals: #{players.score}"
+      players.each_found_treasure do |treasure|
+        puts "#{treasure.points} total #{treasure.name} points"
     end
+    puts "#{players.points} grand total points"
   end
 end
+end
+

@@ -58,6 +58,35 @@ describe Players do
         @players.points.should == 500
     end
 
+    it "yields each found treasure and its total points" do
+        @players.found_treasure(Treasure.new(:skillet, 100))
+        @players.found_treasure(Treasure.new(:skillet, 100))
+        @players.found_treasure(Treasure.new(:hammer, 50))
+        @players.found_treasure(Treasure.new(:bottle, 5))
+        @players.found_treasure(Treasure.new(:bottle, 5))
+        @players.found_treasure(Treasure.new(:bottle, 5))
+        @players.found_treasure(Treasure.new(:bottle, 5))
+        @players.found_treasure(Treasure.new(:bottle, 5))
+      
+        yielded = []
+        @players.each_found_treasure do |treasure|
+          yielded << treasure
+        end
+      
+        yielded.should == [
+          Treasure.new(:skillet, 200),
+          Treasure.new(:hammer, 50),
+          Treasure.new(:bottle, 25)
+       ]
+    end
+
+    it "can be created from a CSV string" do
+        players = Players.from_csv("larry,150")
+      
+        players.name.should == "Larry"
+        players.health.should == 150
+    end
+
     context "created with a default health" do
         before do
           @players = Players.new("larry")
