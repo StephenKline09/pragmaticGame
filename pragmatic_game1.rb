@@ -1,10 +1,18 @@
 require_relative 'players'
 require_relative 'game'
 require_relative 'game_turn'
+require_relative 'clumsy_players'
+require_relative 'berserk_players'
 
 
 knuckleheads = Game.new("Knuckleheads")
 knuckleheads.load_players(ARGV.shift || "players.csv")
+
+klutz = ClumsyPlayers.new("klutz", 105)
+knuckleheads.add_players(klutz)
+
+berserker = BerserkPlayers.new("berserker", 50)
+knuckleheads.add_players(berserker)
 
 loop do
     puts "\nHow many rounds would you like to play? Or Enter 'quit'"
