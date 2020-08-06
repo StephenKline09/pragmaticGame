@@ -1,5 +1,6 @@
 require_relative 'players'
 require_relative 'die'
+require_relative 'loaded_die'
 
 module GameTurn
     def self.take_turn(players)

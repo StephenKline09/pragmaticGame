@@ -1,6 +1,6 @@
 Knuckleheads High Scores:
-Berserker........... 1820
-Michael scott....... 1390
-Klutz............... 1137.5
-Kevin............... 910
-Oscar............... 610
+Oscar............... 1100
+Kevin............... 595
+Klutz............... 560.0
+Berserker........... 385
+Michael scott....... 220
