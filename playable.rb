@@ -1,4 +1,5 @@
 module Playable
+    
     def blam
         @health -= 10
         puts "#{@name} got blammed!"

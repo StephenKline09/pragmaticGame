@@ -6,6 +6,12 @@ class Players
     attr_reader :health
     attr_accessor :name
  
+    def initialize(name, health=100)
+        @name = name.capitalize
+        @health = health
+        @found_treasure = Hash.new(0)
+    end
+    
     def name=(new_name)
         @name = new_name.capitalize
     end
@@ -16,12 +22,6 @@ class Players
 
     def points
         @found_treasure.values.reduce(0, :+)
-    end
-
-    def initialize(name, health=100)
-        @name = name.capitalize
-        @health = health
-        @found_treasure = Hash.new(0)
     end
 
     def self.from_csv(string)
